@@ -41,4 +41,28 @@ class Solution(object):
         :type numRows: int
         :rtype: str
         """
+        if len(s) == 0:
+            return ""
+        if numRows == 1 or numRows > len(s):
+            return s
+        res = ""
+        n = numRows
+        for i in range(n):
+            if i == 0 or i == n - 1:
+                gap = [2*n-2]
+            else:
+                gap = [2*n-2 - 2*i, 2*i]
+            cur_idx = i
+            res += s[cur_idx]
+            gap_idx = 0
+            divisor = len(gap)
+            while 1:
+                cur_idx = cur_idx + gap[gap_idx % divisor]
+                if cur_idx < len(s):
+                    res += s[cur_idx]
+                    gap_idx += 1
+                else:
+                    break
+        return res
+
 # leetcode submit region end(Prohibit modification and deletion)
