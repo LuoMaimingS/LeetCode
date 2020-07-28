@@ -30,14 +30,17 @@
 #  Related Topics 树 深度优先搜索 广度优先搜索 
 #  👍 927 👎 0
 
+# Definition for a binary tree node.
+
+
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 # leetcode submit region begin(Prohibit modification and deletion)
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+
 
 class Solution(object):
     def isSymmetric(self, root):
@@ -45,5 +48,28 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        
+        if root is None:
+            return True
+        left_q = [root]
+        right_q = [root]
+
+        while left_q and right_q:
+            left_elem = left_q.pop(0)
+            right_elem = right_q.pop(0)
+            if left_elem and right_elem:
+                if left_elem.val == right_elem.val:
+                    left_q.append(left_elem.left)
+                    left_q.append(left_elem.right)
+                    right_q.append(right_elem.right)
+                    right_q.append(right_elem.left)
+                else:
+                    return False
+            elif left_elem is None and right_elem is None:
+                continue
+            else:
+                return False
+
+        return True
+
+
 # leetcode submit region end(Prohibit modification and deletion)
